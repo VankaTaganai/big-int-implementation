@@ -15,13 +15,13 @@ big_integer::big_integer(big_integer const& other) {
 
 big_integer::big_integer(int a) {
     negative = a < 0;
-    num.emplace_back(a);
+    num.push_back(a);
     shrink();
 }
 
 big_integer::big_integer(uint32_t a) {
     negative = false;
-    num.emplace_back(a);
+    num.push_back(a);
     shrink();
 }
 
@@ -126,7 +126,7 @@ bool smaller(big_integer const &r, big_integer const &dq, size_t k, size_t m) {
     return false;
 }
 
-void big_integer::difference(big_integer &r, const big_integer &dq, size_t k, size_t m) {
+void difference(big_integer &r, const big_integer &dq, size_t k, size_t m) {
     uint32_t borrow = 0;
     size_t start = k;
     for (size_t i = 0; i <= m; i++) {

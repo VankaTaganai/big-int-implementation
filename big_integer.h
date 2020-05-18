@@ -1,11 +1,10 @@
 #ifndef BIG_INTEGER_H
 #define BIG_INTEGER_H
 
+#include "vector.h"
 #include <cstddef>
-#include <gmp.h>
 #include <iosfwd>
 #include <cstdint>
-#include <vector>
 
 struct big_integer {
     big_integer();
@@ -50,19 +49,26 @@ struct big_integer {
     friend std::string to_string(big_integer const& a);
 
 private:
-    bool negative;
-    std::vector<uint32_t> num;
-
     size_t length() const;
+
     big_integer abs() const;
+
     void expand(size_t len);
+
     big_integer binpow2(size_t n);
+
     uint32_t get_byte(size_t i) const;
+
     void shrink();
+
     friend uint32_t trial(__uint128_t a, __uint128_t b, __uint128_t c, __uint128_t d, __uint128_t e);
     friend bool smaller(big_integer const &r, big_integer const &dq, size_t k, size_t m);
     friend big_integer quotient(big_integer const& y, uint32_t k);
-    void difference(big_integer &r, big_integer const &dq, size_t k, size_t m);
+    friend void difference(big_integer &r, big_integer const &dq, size_t k, size_t m);
+
+private:
+    bool negative;
+    vector<uint32_t> num;
 };
 
 big_integer operator+(big_integer a, big_integer const& b);
